@@ -1,0 +1,31 @@
+name: Workbench Daily Update
+
+on:
+  schedule:
+    - cron: "0 18 * * *"  # runs daily at 6 PM UTC
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update workbench log
+        run: |
+          echo "Workbench update: $(date -u)" >> workbench-log.txt
+
+      - name: Commit changes
+        run: |
+          git add workbench-log.txt
+          git commit -m "Workbench daily update" || echo "No changes to commit"
+
+      - name: Push changes
+        run: git push
