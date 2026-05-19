@@ -1,4 +1,4 @@
-name: Workbench Daily Update
+name: Workbench
 
 on:
   schedule:
@@ -25,7 +25,7 @@ jobs:
       - name: Commit changes
         run: |
           git add workbench-log.txt
-          git commit -m "Workbench daily update" || echo "No changes to commit"
+          git commit -m "Workbench" || echo "No changes to commit"
 
       - name: Push changes
         run: git push
